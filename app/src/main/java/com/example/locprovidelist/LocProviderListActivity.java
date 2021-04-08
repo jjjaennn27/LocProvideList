@@ -2,6 +2,7 @@ package com.example.locprovidelist;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.hardware.Sensor;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,6 @@ import android.widget.TextView;
 import java.util.List;
 
 public class LocProviderListActivity extends AppCompatActivity {
-
     TextView mTextView;
     LocationManager lm;
     List<String> locProvList;
@@ -25,19 +25,20 @@ public class LocProviderListActivity extends AppCompatActivity {
         mTextView = findViewById(R.id.txtOutput);
         mbutton = findViewById(R.id.button1);
         mbutton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                lm = (LocationManager)getSystemService(LOCATION_SERVICE);
-
+                lm = (LocationManager) getSystemService(LOCATION_SERVICE);
                 locProvList = lm.getAllProviders();
                 String s = "";
-                for(int i = 0; i < locProvList.size(); i++) {
-                    s += "Loc. Provider: " + locProvList.get(i) + "\n"
-                            + "Status : " + lm.isProviderEnabled(locProvList.get(i)) + "\n\n";
+
+
+                for(String str : locProvList){
+                    s += "Loc. Provider:" + str + "\n" +
+                    "Statue:" + lm.isProviderEnabled(str) + "\n\n";
                 }
                 mTextView.setText(s);
             }
         });
+
     }
 }
